@@ -5,12 +5,17 @@
  * Имеет свойство URL, равное '/user'.
  * */
 class User {
+  constructor(URL, HOST) {
+    this.URL = '/user';
+    this.HOST = Entity.HOST;
+  }
   /**
    * Устанавливает текущего пользователя в
    * локальном хранилище.
    * */
   static setCurrent(user) {
-
+    localStorage.user = JSON.stringify(user);
+    // localStorage.user = user;
   }
 
   /**
@@ -18,7 +23,7 @@ class User {
    * пользователе из локального хранилища.
    * */
   static unsetCurrent() {
-
+    localStorage.removeItem("user");
   }
 
   /**
@@ -26,15 +31,41 @@ class User {
    * из локального хранилища
    * */
   static current() {
-
+    try {
+      return JSON.parse(localStorage.user);
+    } catch (error) {
+      return null;
+    }
   }
 
   /**
    * Получает информацию о текущем
    * авторизованном пользователе.
    * */
-  static fetch( data, callback = f => f ) {
-
+  static fetch(data, ccc) {
+    // createRequest({
+    //   url: URL,
+    //   method: 'GET',
+    //   callback: ( err, response ) => {
+    //     console.log( err ); // null
+    //     console.log( response ); // ответ
+    //   }
+    // });
+    const xhr = createRequest({
+      url: Entity.HOST + Entity.URL + URL,
+      data: data,
+      method: 'GET',
+      callback(err, response) {
+        if (response && response.user) {
+          User.setCurrent(response.user);
+        } else {
+          // ...
+          // вызываем параметр, переданный в метод fetch
+          callback(err, response);
+        }
+      }
+    });
+    // return response;
   }
 
   /**
@@ -43,8 +74,20 @@ class User {
    * сохранить пользователя через метод
    * User.setCurrent.
    * */
-  static login( data, callback = f => f ) {
+  static login(data, callback) {
+    let res = createRequest({
+      url: Entity.HOST + Entity.URL + '/login',
+      data: data,
+      method: 'POST',
+      callback(err, response) {
+        if (res.user != undefined) {
+          User.setCurrent(response.user);
+        } else {
 
+          callback(err, response);
+        }
+      }
+    });
   }
 
   /**
@@ -53,15 +96,40 @@ class User {
    * сохранить пользователя через метод
    * User.setCurrent.
    * */
-  static register( data, callback = f => f ) {
-
+  static register(data, callback) {
+    let res = createRequest({
+      url: Entity.HOST + Entity.URL + '/register',
+      data: data,
+      method: 'POST',
+      callback(err, response) {
+        // if (res.user != undefined) {
+          User.setCurrent(response.user);
+          return response;
+        // } else {
+        //   callback(err, response);
+        //   return err;
+        // }
+      }
+    });
   }
 
   /**
    * Производит выход из приложения. После успешного
    * выхода необходимо вызвать метод User.unsetCurrent
    * */
-  static logout( data, callback = f => f ) {
+  static logout(data, callback) {
+    let res = createRequest({
+      url: Entity.HOST + Entity.URL + '/logout',
+      data: data,
+      method: 'POST',
+      callback(err, response) {
+        if (res.user != undefined) {
+          User.unsetCurrent();
+        } else {
 
+          callback(err, response);
+        }
+      }
+    });
   }
 }

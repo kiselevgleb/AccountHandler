@@ -3,12 +3,6 @@
  * кнопки скрытия/показа колонки в мобильной версии сайта
  * и за кнопки меню
  * */
-let but = document.querySelector(".sidebar-toggle");
-let body = document.querySelector("body");
-let regBut = document.querySelector(".menu-item_register");
-let logBut = document.querySelector(".menu-item_login");
-let logOutBut = document.querySelector(".menu-item_logout");
-
 class Sidebar {
   /**
    * Запускает initAuthLinks и initToggleButton
@@ -16,7 +10,6 @@ class Sidebar {
   static init() {
     this.initAuthLinks();
     this.initToggleButton();
-    console.log("init11");
   }
 
   /**
@@ -25,16 +18,7 @@ class Sidebar {
    * при нажатии на кнопку .sidebar-toggle
    * */
   static initToggleButton() {
-    but.addEventListener("click", function () {
-      console.log("menu");
-      if (body.classList.length == 3) {
-        body.classList.add("sidebar-open");
-        body.classList.add("sidebar-collapse");
-      } else {
-        body.classList.remove("sidebar-open");
-        body.classList.remove("sidebar-collapse");
-      }
-    });
+
   }
 
   /**
@@ -46,16 +30,6 @@ class Sidebar {
    * */
   static initAuthLinks() {
 
-    logBut.addEventListener("click", function () {
-      console.log("log");
-      App.getModal('login').open();
-    });
-    regBut.addEventListener("click", function () {
-      App.getModal('register').open(); 
-    });
-    logOutBut.addEventListener("click", function () {
-      User.logout(); 
-    });
   }
 
 }

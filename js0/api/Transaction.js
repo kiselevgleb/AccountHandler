@@ -3,9 +3,5 @@
  * Управляет счетами пользователя.
  * Имеет свойство URL со значением '/transaction'
  * */
-class Transaction extends Entity{
-    constructor() {
-        URL = '/transaction';
-      }
-
+class Transaction {
 }

@@ -11,13 +11,7 @@ class UserWidget {
    * необходимо выкинуть ошибку.
    * */
   constructor( element ) {
-    if (element != null) {
-      this.element = element;
-      // widgets.AccountsWidget.registerEvents();
-      // AccountsWidget.registerEvents();
-    } else {
-      throw "null";
-    }
+
   }
 
   /**
@@ -28,10 +22,6 @@ class UserWidget {
    * авторизованного пользователя
    * */
   update() {
-    let n = document.querySelector(".user-name");
-    let u = User.current();
-    if(u!=null){
-      n.textContent=u.name;
-    }
+
   }
 }

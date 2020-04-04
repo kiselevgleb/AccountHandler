@@ -4,11 +4,6 @@
  * Имеет свойство HOST, равно 'https://bhj-diplom.letsdocode.ru'.
  * */
 class Entity {
-  constructor(URL, HOST) {
-    this.URL = "";
-    this.HOST = "https://bhj-diplom.letsdocode.ru";
-  }
-
 
   /**
    * Запрашивает с сервера список данных.

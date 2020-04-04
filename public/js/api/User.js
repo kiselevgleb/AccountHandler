@@ -5,10 +5,10 @@
  * Имеет свойство URL, равное '/user'.
  * */
 class User {
-  constructor(URL, HOST) {
-    this.URL = '/user';
-    this.HOST = Entity.HOST;
-  }
+  // constructor(URL, HOST) {
+    URL = '/user';
+    HOST = Entity.HOST;
+  // }
   /**
    * Устанавливает текущего пользователя в
    * локальном хранилище.

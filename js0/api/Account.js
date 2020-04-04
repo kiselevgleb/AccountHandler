@@ -3,8 +3,5 @@
  * Управляет счетами пользователя.
  * Имеет свойство URL со значением '/account'
  * */
-class Account extends Entity {
-    constructor() {
-        URL = '/account';
-    }
+class Account {
 }
