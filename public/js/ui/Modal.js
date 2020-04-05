@@ -4,6 +4,7 @@
  * В первую очередь это открытие или
  * закрытие имеющихся окон
  * */
+let mod;
 class Modal {
   /**
    * Устанавливает текущий элемент в свойство element
@@ -23,7 +24,7 @@ class Modal {
     }
   }
 
-  
+
   /**
    * При нажатии на элемент с data-dismiss="modal"
    * должен закрыть текущее окно
@@ -31,18 +32,13 @@ class Modal {
    * */
   registerEvents() {
     // console.log("111");
-    // console.log(this.element);
+    console.log(this.element);
     let el = this.element;
-    let mod	= document.querySelectorAll('[data-dismiss="modal"]');
-    Array.from(mod).forEach(element => element.addEventListener("click", function(){
-      // console.log(element);
-      // console.log(el);
-      // el.onClose;
-      // this.onClose(el);
-      // Modal.onClose();
+    let closeBut = this.close();
+    mod = document.querySelectorAll('[data-dismiss="modal"]');
+    Array.from(mod).forEach(element => element.addEventListener("click", function (e) {
       el.style.display = 'none';
     }));
-    
   }
 
   /**
@@ -51,7 +47,7 @@ class Modal {
    * */
   onClose(e) {
     // e.addEventListener("click", function(){
-      e.close();
+    e.close();
     // })
   }
   /**
@@ -65,13 +61,14 @@ class Modal {
    * со значением «block»
    * */
   open() {
-      this.element.style.display = 'block';
+    this.element.style.display = 'block';
   }
   /**
    * Закрывает окно: удаляет CSS-свойство display
    * */
   close() {
-    Array.from(mod).forEach(element => element.style.display = 'none');
+    this.element.style.display = 'none';
+    // Array.from(mod).forEach(element => element.style.display = 'none');
     // this.element.style.display = 'none';
   }
 }

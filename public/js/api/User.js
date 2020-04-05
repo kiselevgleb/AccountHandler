@@ -56,13 +56,14 @@ class User {
       data: data,
       method: 'GET',
       callback(err, response) {
-        if (response && response.user) {
+        // if (response && response.user) {
           User.setCurrent(response.user);
-        } else {
+          return response;
+        // } else {
           // ...
           // вызываем параметр, переданный в метод fetch
-          callback(err, response);
-        }
+          // callback(err, response);
+        // }
       }
     });
     // return response;
@@ -80,12 +81,13 @@ class User {
       data: data,
       method: 'POST',
       callback(err, response) {
-        if (res.user != undefined) {
+        // if (res.user != undefined) {
           User.setCurrent(response.user);
-        } else {
+          return response;
+        // } else {
 
-          callback(err, response);
-        }
+        //   callback(err, response);
+        // }
       }
     });
   }
@@ -104,6 +106,8 @@ class User {
       callback(err, response) {
         // if (res.user != undefined) {
           User.setCurrent(response.user);
+          console.log("response");
+          console.log(response);
           return response;
         // } else {
         //   callback(err, response);

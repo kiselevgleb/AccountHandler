@@ -11,9 +11,13 @@ class LoginForm extends AsyncForm{
    * закрывает окно, в котором находится форма
    * */
   onSubmit( options ) {
-    if(User.login(options).user!= undefined){
+    // if(User.login(options).user!= undefined){
+      User.login(options)
       App.setState( 'user-logged' );
-      Modal.close();
-    }
+      let mod = document.querySelectorAll('.modal.fade.in');
+      console.log(mod);
+      Array.from(mod).forEach(element => element.style.display = 'none');
+  
+    // }
   }
 }

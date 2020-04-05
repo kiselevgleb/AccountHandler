@@ -31,22 +31,19 @@ class AsyncForm {
    * */
 
   registerEvents() {
-    ee==this;
-    let b = this.submittt;
+    // ee==this;
+    // let b = this.submittt;
     let bb = this.onSubmit;
     this.element.addEventListener("submit", function (e) {
       e.preventDefault();
-      if(e.target!=null){
-        form = e.target; 
+      if (e.target != null) {
+        form = e.target;
         let object = {};
         let formData = new FormData(form);
         formData.forEach(function (value, key) {
           object[key] = value;
         });
-        bb(object)
-        // e.onSubmit(object);
-        // console.log(b);
-        // b();
+        bb(object);
       }
       // console.log(ee);
       // console.log(form);
@@ -64,14 +61,6 @@ class AsyncForm {
       // return false;
       // form.submit();
     });
-    // console.log(bool);
-    
-    // if(bool){
-    //   console.log("3");
-    //   this.submittt();
-    // }
-    
-    // console.log(this.getData());
   }
 
   /**
