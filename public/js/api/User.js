@@ -52,7 +52,7 @@ class User {
     //   }
     // });
     const xhr = createRequest({
-      url: Entity.HOST + Entity.URL + URL,
+      url: "/current",
       data: data,
       method: 'GET',
       callback(err, response) {
@@ -77,7 +77,7 @@ class User {
    * */
   static login(data, callback) {
     let res = createRequest({
-      url: Entity.HOST + Entity.URL + '/login',
+      url: Entity.HOST + '/login',
       data: data,
       method: 'POST',
       callback(err, response) {
@@ -100,7 +100,7 @@ class User {
    * */
   static register(data, callback) {
     let res = createRequest({
-      url: Entity.HOST + Entity.URL + '/register',
+      url: '/register',
       data: data,
       method: 'POST',
       callback(err, response) {
@@ -123,7 +123,7 @@ class User {
    * */
   static logout(data, callback) {
     let res = createRequest({
-      url: Entity.HOST + Entity.URL + '/logout',
+      url: Entity.HOST + '/logout',
       data: data,
       method: 'POST',
       callback(err, response) {

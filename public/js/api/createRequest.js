@@ -8,21 +8,38 @@ const createRequest = options => {
     // ...
     try {
       xhr.open(options.method, options.url);
-      xhr.send(options.data);
-      // console.log(options.data);
+      
+      console.log("options.data");
+      console.log(options.data);
+      console.log(options.url);
       xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
+        if (xhr.readyState === 4&&xhr.status>400) {
           console.log("xhr.responseText");
-          console.log(xhr.responseText);
+          console.log(this);
           return xhr.responseText;
         }
       };
+      xhr.send(options.data);
     }
       catch (e) {
         // перехват сетевой ошибки
         callback(e);
       }
     }
+
+  //   xhr.onreadystatechange = function() {
+  //     if (this.readyState === 4) {
+  //       if (this.status >= 200 && this.status < 400) {
+  //         var r=JSON.parse(this.responseText);
+  //         text=r.text[0];
+  //         resolve(text); // Вызываем resolve и передаем text в качестве параметра
+  //       } else {
+  //         reject(new Error('Error')); // Обработка ошибки
+  //     }
+  //    }
+  //   };
+  //   xhr.send();
+  // });
     // return createRequest;
     // const xhr = createRequest({
     //     url: 'http://localhost:8000',

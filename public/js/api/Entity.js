@@ -5,7 +5,7 @@
  * */
 class Entity {
     URL = '';
-    HOST = "http://localhost:8000";
+    HOST = "https://bhj-diplom.letsdocode.ru";
 
 
 
