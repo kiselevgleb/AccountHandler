@@ -32,7 +32,7 @@ class Modal {
    * */
   registerEvents() {
     // console.log("111");
-    console.log(this.element);
+    // console.log(this.element);
     let el = this.element;
     let closeBut = this.close();
     mod = document.querySelectorAll('[data-dismiss="modal"]');

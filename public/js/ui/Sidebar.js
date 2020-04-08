@@ -16,7 +16,7 @@ class Sidebar {
   static init() {
     this.initAuthLinks();
     this.initToggleButton();
-    console.log("init11");
+    // console.log("init11");
   }
 
   /**

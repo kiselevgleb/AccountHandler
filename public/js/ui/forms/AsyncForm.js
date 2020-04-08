@@ -7,7 +7,6 @@
  * */
 let form;
 let ee;
-// let json;
 class AsyncForm {
   /**
    * Если переданный элемент не существует,
@@ -31,35 +30,19 @@ class AsyncForm {
    * */
 
   registerEvents() {
-    // ee==this;
-    // let b = this.submittt;
     let bb = this.onSubmit;
     this.element.addEventListener("submit", function (e) {
       e.preventDefault();
       if (e.target != null) {
-        form = e.target;
         let object = {};
-        let formData = new FormData(form);
+        let formData = new FormData(e.target);
         formData.forEach(function (value, key) {
           object[key] = value;
         });
-        bb(object);
+        console.log('JSON.stringify(object)');
+        console.log(object);
+        bb(JSON.stringify(object));
       }
-      // console.log(ee);
-      // console.log(form);
-      // let object = {};
-      // let formData = new FormData(e.target);
-      // formData.forEach(function (value, key) {
-      //   object[key] = value;
-      // });
-      // json = object;
-      // console.log(json);
-      // ee = "{"+ e.target.elements[0].name+": " + e.target.elements[0].value+", " + e.target.elements[1].name+": " + e.target.elements[1].value+", " + e.target.elements[2].name+": " + e.target.elements[2].value+"}"
-      // console.log(ee);
-      // console.log(JSON.stringify(ee));
-
-      // return false;
-      // form.submit();
     });
   }
 

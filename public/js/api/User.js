@@ -6,8 +6,8 @@
  * */
 class User {
   // constructor(URL, HOST) {
-    URL = '/user';
-    HOST = Entity.HOST;
+  URL = '/user';
+  HOST = Entity.HOST;
   // }
   /**
    * Устанавливает текущего пользователя в
@@ -15,6 +15,7 @@ class User {
    * */
   static setCurrent(user) {
     localStorage.user = JSON.stringify(user);
+    console.log(user);
     // localStorage.user = user;
   }
 
@@ -24,6 +25,8 @@ class User {
    * */
   static unsetCurrent() {
     localStorage.removeItem("user");
+    console.log("777logout2");
+    // localStorage.clear();
   }
 
   /**
@@ -42,31 +45,28 @@ class User {
    * Получает информацию о текущем
    * авторизованном пользователе.
    * */
-  static fetch(data, ccc) {
-    // createRequest({
-    //   url: URL,
-    //   method: 'GET',
-    //   callback: ( err, response ) => {
-    //     console.log( err ); // null
-    //     console.log( response ); // ответ
-    //   }
-    // });
+  static fetch(data, callback) {
+    let d = User.current();
+    data=d;
+    console.log(data);
+
     const xhr = createRequest({
-      url: "/current",
+      url: "/user/current",
       data: data,
       method: 'GET',
-      callback(err, response) {
-        // if (response && response.user) {
+      responseType: 'json',
+      callback: (err, response) => {
+        console.log("response11");
+        console.log(d);
+        console.log(response);
+        if (response.success) {
           User.setCurrent(response.user);
-          return response;
-        // } else {
-          // ...
-          // вызываем параметр, переданный в метод fetch
-          // callback(err, response);
+        }
+        // else{
+        //   User.unsetCurrent();
         // }
       }
     });
-    // return response;
   }
 
   /**
@@ -77,18 +77,28 @@ class User {
    * */
   static login(data, callback) {
     let res = createRequest({
-      url: Entity.HOST + '/login',
+      url: '/user/login',
       data: data,
       method: 'POST',
-      callback(err, response) {
-        // if (res.user != undefined) {
+      responseType: 'json',
+      callback: (err, response) => {
+        if (response!=undefined) {
+              console.log("777");
           User.setCurrent(response.user);
-          return response;
-        // } else {
+          //     // return response;
+        } else {
 
-        //   callback(err, response);
-        // }
+        }
       }
+      // callback(err, response) {
+      //   if (response.success) {
+      //     console.log("777");
+      //     User.setCurrent(response.user);
+      //     // return response;
+      //   } else {
+      //     callback(err);
+      //   }
+      // }
     });
   }
 
@@ -100,21 +110,23 @@ class User {
    * */
   static register(data, callback) {
     let res = createRequest({
-      url: '/register',
+      url: '/user/register',
       data: data,
       method: 'POST',
-      callback(err, response) {
-        // if (res.user != undefined) {
+      responseType: 'json',
+      callback: (err, response) => {
+        if (response!=undefined) {
+              console.log("777");
           User.setCurrent(response.user);
-          console.log("response");
-          console.log(response);
-          return response;
-        // } else {
-        //   callback(err, response);
-        //   return err;
-        // }
+          //     // return response;
+        } else {
+
+        }
       }
     });
+    console.log("res");
+    console.log(res);
+
   }
 
   /**
@@ -123,15 +135,17 @@ class User {
    * */
   static logout(data, callback) {
     let res = createRequest({
-      url: Entity.HOST + '/logout',
+      url: '/user/logout',
       data: data,
       method: 'POST',
-      callback(err, response) {
-        if (res.user != undefined) {
+      responseType: 'json',
+      callback: (err, response) => {
+        if (response!=undefined) {
+              console.log("777logout");
           User.unsetCurrent();
+          //     // return response;
         } else {
 
-          callback(err, response);
         }
       }
     });

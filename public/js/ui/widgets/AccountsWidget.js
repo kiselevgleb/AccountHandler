@@ -57,7 +57,7 @@ class AccountsWidget {
       if (masAcc != null) {
         this.clear();
       }
-      masAcc.forEach(element => element.renderItem());
+      // masAcc.forEach(element => element.renderItem());
     }
   }
 
