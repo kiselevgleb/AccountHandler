@@ -46,7 +46,7 @@ class User {
    * авторизованном пользователе.
    * */
   static fetch(data, callback) {
-    let d = User.current();
+    let d = localStorage.user;
     data=d;
     console.log(data);
 
@@ -67,6 +67,7 @@ class User {
         // }
       }
     });
+
   }
 
   /**
