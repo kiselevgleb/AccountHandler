@@ -3,7 +3,7 @@
  * отображения счетов в боковой колонке
  * */
 let butAccount = document.querySelectorAll(".account");
-
+let butCreate = document.querySelector(".create-account");
 class AccountsWidget {
   /**
    * Устанавливает текущий элемент в свойство element
@@ -23,8 +23,6 @@ class AccountsWidget {
       throw "null";
     }
   }
-
-
   /**
    * При нажатии на .create-account открывает окно
    * #modal-new-account для создания нового счёта
@@ -33,11 +31,9 @@ class AccountsWidget {
    * вызывает AccountsWidget.onSelectAccount()
    * */
   registerEvents() {
-    let butCreate = document.querySelector(".create-account");
-    butCreate.addEventListener("click", function (e) {
-      App.getModal("newAccount");
+    butCreate.addEventListener("click", function () {
+      App.getModal('createAccount').open();
     });
-
     Array.from(butAccount).forEach(element => this.onSelectAccount());
   }
 
@@ -53,11 +49,14 @@ class AccountsWidget {
    * */
   update() {
     if (User.current() != null) {
+      console.log(this.element);
       let masAcc = Account.list();
+      console.log("mas "+masAcc);
       if (masAcc != null) {
         this.clear();
+        masAcc.forEach(element => renderItem(element));
       }
-      // masAcc.forEach(element => element.renderItem());
+      
     }
   }
 
@@ -103,6 +102,6 @@ class AccountsWidget {
    * */
   renderItem(item) {
     let mas = JSON.parse(item);
-    mas.forEach(e => this.element.insertAdjacentHTML("beforeend", this.getAccountHTML(e)));
+    mas.forEach(e => insertAdjacentHTML("beforeend", this.getAccountHTML(e)));
     }
 }

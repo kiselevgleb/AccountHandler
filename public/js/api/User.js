@@ -47,9 +47,12 @@ class User {
    * */
   static fetch(data, callback) {
     let d = localStorage.user;
-    data=d;
-    console.log(data);
-
+    // data=d;
+    // console.log(data);
+    if(localStorage.user!=null){
+      d = localStorage.user;
+      let mas = d.split(",");
+      data=mas[0]+","+mas[2];}
     const xhr = createRequest({
       url: "/user/current",
       data: data,
