@@ -5,107 +5,58 @@
  * */
 class Entity {
   URL = '';
-  HOST = "http://localhost:8000/";
+  HOST = "http://localhost:8000";
   /**
    * Запрашивает с сервера список данных.
    * Это могут быть счета или доходы/расходы
    * (в зависимости от того, что наследуется от Entity)
    * */
-  static list(data, callback) {
-    let d;
-    let res;
-    console.log("data");
-    console.log(data);
-    console.log(this.URL);
-    if(localStorage.user!=null){
-      d = localStorage.user;
-      // let mas = d.split(",");
-      // data=mas[0]+","+mas[2];
-    }
-    createRequest({
-      url: this.URL,
-      data: d,
-      method: 'GET',
-      responseType: 'json',
-      callback: (err, response) => {
-        console.log("entityList");
-        console.log(response);
-        res=response;
-        // return response;
-        // console.log(d);
-        // console.log(response);
-        // if (response.success) {
-        //   User.setCurrent(response.user);
-        // }
-        // else{
-        //   User.unsetCurrent();
-        // }
-      }
-      
-    });
-    return res;
-  }
+  static list(data, callback= f => f ) {
+    console.log(this.HOST + this.URL);
+    return createRequest({
+          url: this.HOST + this.URL,
+          method: "GET",
+          responseType: "json",
+          data,
+          callback
+        });}
 
   /**
    * Создаёт счёт или доход/расход с помощью запроса
    * на сервер. (в зависимости от того,
    * что наследуется от Entity)
    * */
-  static create(data, callback) {
-    createRequest({
-      url: this.URL,
-      data: data,
-      method: 'POST',
-      responseType: 'json',
-      callback: (err, response) => {
-        console.log("entityCreate");
-        console.log(response);
-        return response;
-      }
-    });
-  }
-
+  static create(data, callback= f => f ) {
+    return createRequest({
+      url: this.HOST + this.URL,
+      method: "POST",
+      responseType: "json",
+      data,
+      callback
+    });}
   /**
    * Получает информацию о счёте или доходе/расходе
    * (в зависимости от того, что наследуется от Entity)
    * */
-  static get(id = '', data, callback) {
-    let d;
-    if(localStorage.user!=null){
-      d = Object.assign({ "id": id }, localStorage.user );
-    }
-    createRequest({
-      url: this.URL,
-      data: d,
-      method: 'GET',
-      responseType: 'json',
-      callback: (err, response) => {
-        console.log("entityGet");
-        console.log(response);
-        return response;
-      }
-    });
-  }
-
+  static get(id = '', data, callback= f => f ) {
+    return createRequest({
+      url: this.HOST + this.URL,
+      method: "GET",
+      responseType: "json",
+      data: Object.assign({ "id": id }, data),
+      callback
+    });}
+  
   /**
    * Удаляет информацию о счёте или доходе/расходе
    * (в зависимости от того, что наследуется от Entity)
    * */
-  static remove(id = '', data, callback = f => f) {
-    let d;
-    if(localStorage.user!=null){
-      d = Object.assign({ "id": id }, localStorage.user );
-    }
-    createRequest({
-      url: this.URL,
-      data: data,
-      method: 'POST',
-      responseType: 'json',
-      callback: (err, response) => {
-        console.log("entityDel");
-        console.log(response);
-        return response;
-      }
-    });
-  }
+  static remove(id = '', data, callback= f => f ) {
+    return createRequest({
+      url: this.HOST + this.URL,
+      method: "POST",
+      responseType: "json",
+      data: Object.assign({ "id": id }, data),
+      callback
+    });}
 }

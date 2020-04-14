@@ -27,8 +27,9 @@ const createRequest = (options = {}) => {
   let error = null;
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
-      console.log(xhr.response);
+      console.log(xhr.response.data);
       options.callback(error, xhr.response);
+      
     }
   };
   try {
@@ -37,5 +38,6 @@ const createRequest = (options = {}) => {
     error = err;
     options.callback(error, null);
   }
+  
   return xhr;
 }

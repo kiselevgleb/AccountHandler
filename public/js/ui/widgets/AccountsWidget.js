@@ -50,16 +50,23 @@ class AccountsWidget {
   update() {
     if (User.current() != null) {
       console.log(this.element);
-      let masAcc = Account.list();
-      console.log("mas "+masAcc);
-      if (masAcc != null) {
-        this.clear();
-        masAcc.forEach(element => renderItem(element));
-      }
-      
-    }
-  }
+      let masAcc = Account.list(localStorage.user);
+      // setTimeout(console.log("wait"), 20000);
+      console.log(masAcc);
 
+    
+      // let mas = masAcc.response.data;
+      console.log("XMLHttpRequest");
+      
+      console.log(masAcc.response);
+
+      if (masAcc.response != null) {
+        this.clear();
+        // masAcc.forEach(element => renderItem(element));
+      }
+    }
+  
+  }
   /**
    * Очищает список ранее отображённых счетов.
    * Для этого необходимо удалять все элементы .account
@@ -103,5 +110,5 @@ class AccountsWidget {
   renderItem(item) {
     let mas = JSON.parse(item);
     mas.forEach(e => insertAdjacentHTML("beforeend", this.getAccountHTML(e)));
-    }
+  }
 }
