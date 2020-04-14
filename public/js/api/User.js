@@ -54,7 +54,7 @@ class User {
       let mas = d.split(",");
       data=mas[0]+","+mas[2];}
       return createRequest({
-      url: "/user/current",
+      url: this.HOST + this.URL + "/current",
       data: data,
       method: 'GET',
       responseType: 'json',
@@ -65,9 +65,10 @@ class User {
         if (response.success) {
           User.setCurrent(response.user);
         }
-        // else{
-        //   User.unsetCurrent();
-        // }
+        else{
+          User.unsetCurrent();
+        }
+
       }
     });
 
@@ -81,7 +82,7 @@ class User {
    * */
   static login(data, callback= f => f ) {
     return createRequest({
-      url: '/user/login',
+      url: this.HOST + this.URL + '/login',
       data: data,
       method: 'POST',
       responseType: 'json',
@@ -114,7 +115,7 @@ class User {
    * */
   static register(data, callback= f => f ) {
     return createRequest({
-      url: '/user/register',
+      url: this.HOST + this.URL + '/register',
       data: data,
       method: 'POST',
       responseType: 'json',
@@ -139,7 +140,7 @@ class User {
    * */
   static logout(data, callback= f => f ) {
     return createRequest({
-      url: '/user/logout',
+      url: this.HOST + this.URL + '/logout',
       data: data,
       method: 'POST',
       responseType: 'json',

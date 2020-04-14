@@ -5,8 +5,8 @@
  * с таких форм собираются и передаются в метод onSubmit
  * для последующей обработки
  * */
-let form;
-let ee;
+// let form;
+// let ee;
 class AsyncForm {
   /**
    * Если переданный элемент не существует,
@@ -20,7 +20,7 @@ class AsyncForm {
       this.element = element;
       this.registerEvents();
     } else {
-      throw "null";
+      throw "переданный элемент не существует";
     }
   }
 
