@@ -53,8 +53,6 @@ class AccountsWidget {
       let masAcc = Account.list(localStorage.user);
       // setTimeout(console.log("wait"), 20000);
       console.log(masAcc);
-
-    
       // let mas = masAcc.response.data;
       console.log("XMLHttpRequest");
       

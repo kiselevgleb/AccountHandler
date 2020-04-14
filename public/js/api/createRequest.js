@@ -24,20 +24,21 @@ const createRequest = (options = {}) => {
     }
   }
   xhr.open(options.method, url);
+
   let error = null;
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) {
-      console.log(xhr.response.data);
-      options.callback(error, xhr.response);
-      
-    }
-  };
+
   try {
     xhr.send(d);
   } catch (err) {
     error = err;
     options.callback(error, null);
   }
-  
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4) {
+      console.log(xhr.response.data);
+      options.callback(error, xhr.response);
+    }
+    
+  };
   return xhr;
 }

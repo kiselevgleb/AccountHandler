@@ -45,7 +45,7 @@ class User {
    * Получает информацию о текущем
    * авторизованном пользователе.
    * */
-  static fetch(data, callback) {
+  static fetch(data, callback= f => f ) {
     let d = localStorage.user;
     // data=d;
     // console.log(data);
@@ -53,7 +53,7 @@ class User {
       d = localStorage.user;
       let mas = d.split(",");
       data=mas[0]+","+mas[2];}
-    const xhr = createRequest({
+      return createRequest({
       url: "/user/current",
       data: data,
       method: 'GET',
@@ -79,8 +79,8 @@ class User {
    * сохранить пользователя через метод
    * User.setCurrent.
    * */
-  static login(data, callback) {
-    let res = createRequest({
+  static login(data, callback= f => f ) {
+    return createRequest({
       url: '/user/login',
       data: data,
       method: 'POST',
@@ -112,8 +112,8 @@ class User {
    * сохранить пользователя через метод
    * User.setCurrent.
    * */
-  static register(data, callback) {
-    let res = createRequest({
+  static register(data, callback= f => f ) {
+    return createRequest({
       url: '/user/register',
       data: data,
       method: 'POST',
@@ -137,8 +137,8 @@ class User {
    * Производит выход из приложения. После успешного
    * выхода необходимо вызвать метод User.unsetCurrent
    * */
-  static logout(data, callback) {
-    let res = createRequest({
+  static logout(data, callback= f => f ) {
+    return createRequest({
       url: '/user/logout',
       data: data,
       method: 'POST',
