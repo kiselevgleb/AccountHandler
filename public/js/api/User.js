@@ -4,10 +4,11 @@
  * Имеет свойство HOST, равно значению Entity.HOST.
  * Имеет свойство URL, равное '/user'.
  * */
+var URL = '/user';
+var HOST = Entity.getHost();
 class User {
   // constructor(URL, HOST) {
-  URL = '/user';
-  HOST = Entity.HOST;
+
   // }
   /**
    * Устанавливает текущего пользователя в
@@ -24,8 +25,10 @@ class User {
    * пользователе из локального хранилища.
    * */
   static unsetCurrent() {
+    console.log(current());
+
     localStorage.removeItem("user");
-    console.log("777logout2");
+    console.log(current());
     // localStorage.clear();
   }
 
@@ -45,16 +48,17 @@ class User {
    * Получает информацию о текущем
    * авторизованном пользователе.
    * */
-  static fetch(data, callback= f => f ) {
+  static fetch(data, callback = f => f) {
     let d = localStorage.user;
     // data=d;
-    // console.log(data);
-    if(localStorage.user!=null){
+    console.log(HOST + URL + "/current");
+    if (localStorage.user != null) {
       d = localStorage.user;
       let mas = d.split(",");
-      data=mas[0]+","+mas[2];}
-      return createRequest({
-      url: this.HOST + this.URL + "/current",
+      data = mas[0] + "," + mas[2];
+    }
+    return createRequest({
+      url: HOST + URL + "/current",
       data: data,
       method: 'GET',
       responseType: 'json',
@@ -62,13 +66,12 @@ class User {
         console.log("response11");
         console.log(d);
         console.log(response);
-        if (response.success) {
+        if (response != null) {
           User.setCurrent(response.user);
-        }
-        else{
+        } else {
           User.unsetCurrent();
         }
-
+        callback(err, response);
       }
     });
 
@@ -80,30 +83,19 @@ class User {
    * сохранить пользователя через метод
    * User.setCurrent.
    * */
-  static login(data, callback= f => f ) {
+  static login(data, callback = f => f) {
     return createRequest({
-      url: this.HOST + this.URL + '/login',
+      url: HOST + URL + '/login',
       data: data,
       method: 'POST',
       responseType: 'json',
       callback: (err, response) => {
-        if (response!=undefined) {
-              console.log("777");
+        if (response.success) {
+          console.log("777");
           User.setCurrent(response.user);
-          //     // return response;
-        } else {
-
-        }
+        } 
+        callback(err, response);
       }
-      // callback(err, response) {
-      //   if (response.success) {
-      //     console.log("777");
-      //     User.setCurrent(response.user);
-      //     // return response;
-      //   } else {
-      //     callback(err);
-      //   }
-      // }
     });
   }
 
@@ -113,24 +105,24 @@ class User {
    * сохранить пользователя через метод
    * User.setCurrent.
    * */
-  static register(data, callback= f => f ) {
+  static register(data, callback = f => f) {
     return createRequest({
-      url: this.HOST + this.URL + '/register',
+      url: HOST + URL + '/register',
       data: data,
       method: 'POST',
       responseType: 'json',
       callback: (err, response) => {
-        if (response!=undefined) {
-              console.log("777");
+        if (response.success) {
           User.setCurrent(response.user);
           //     // return response;
+           
         } else {
-
         }
+        callback(err, response);
       }
+
     });
-    console.log("res");
-    console.log(res);
+
 
   }
 
@@ -138,20 +130,20 @@ class User {
    * Производит выход из приложения. После успешного
    * выхода необходимо вызвать метод User.unsetCurrent
    * */
-  static logout(data, callback= f => f ) {
+  static logout(data, callback = f => f) {
     return createRequest({
-      url: this.HOST + this.URL + '/logout',
+      url: HOST + URL + '/logout',
       data: data,
       method: 'POST',
       responseType: 'json',
       callback: (err, response) => {
-        if (response!=undefined) {
-              console.log("777logout");
+        console.log("resOut");
+        console.log(response);
+        if (response.success) {
+          console.log("777logout");
           User.unsetCurrent();
-          //     // return response;
-        } else {
-
-        }
+        } 
+        callback(err, response);
       }
     });
   }

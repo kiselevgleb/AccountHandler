@@ -48,8 +48,8 @@ class AccountsWidget {
    * метода renderItem()
    * */
   update() {
-    if (User.current() != null) {
-      console.log(this.element);
+    if (User.current() != undefined) {
+      console.log(localStorage.user);
       
       let masAcc = Account.list(localStorage.user);
       

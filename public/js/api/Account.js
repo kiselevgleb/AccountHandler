@@ -5,4 +5,4 @@
  * */
 class Account extends Entity {}
 Account.URL = '/account';
-Account.HOST = "http://localhost:8000";
+// Account.HOST = "http://localhost:8000";

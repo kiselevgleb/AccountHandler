@@ -33,16 +33,14 @@ const createRequest = (options = {}) => {
     error = err;
     options.callback(error, null);
   }
-  let r = null;
+
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4) {
-      console.log(xhr.response.data);
+      console.log(xhr.response);
       options.callback(error, xhr.response);
-      r= xhr.response;
     }
     
   };
   
-  
-  return r;
+  return xhr;
 }
