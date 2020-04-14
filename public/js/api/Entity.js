@@ -31,7 +31,7 @@ class Entity {
       url: this.HOST + this.URL,
       method: "POST",
       responseType: "json",
-      data,
+      data: Object.assign(data, { _method: 'PUT'}),
       callback
     });}
   /**
