@@ -50,14 +50,16 @@ class AccountsWidget {
   update() {
     if (User.current() != undefined) {
       console.log(localStorage.user);
-      
-      let masAcc = Account.list(localStorage.user);
-      
+      let masAcc;
+      try {
+        masAcc = Account.list(JSON.parse(localStorage.user));
+      } catch (error) {
+      }
       // setTimeout(console.log("wait"), 20000);
       console.log(masAcc);
       // let mas = masAcc.response.data;
       console.log("XMLHttpRequest");
-      
+
       console.log(masAcc);
 
       if (masAcc != null) {
@@ -65,7 +67,7 @@ class AccountsWidget {
         // masAcc.forEach(element => renderItem(element));
       }
     }
-  
+
   }
   /**
    * Очищает список ранее отображённых счетов.
