@@ -28,7 +28,6 @@ const createRequest = (options = {}) => {
     }
   }
   xhr.open(options.method, url);
-
   let error = null;
 
   try {
