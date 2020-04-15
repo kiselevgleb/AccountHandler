@@ -22,10 +22,10 @@ class User {
    * пользователе из локального хранилища.
    * */
   static unsetCurrent() {
-    console.log(current());
+    // console.log(current());
 
     localStorage.removeItem("user");
-    console.log(current());
+    // console.log(current());
     // localStorage.clear();
   }
   /**
@@ -44,22 +44,21 @@ class User {
    * авторизованном пользователе.
    * */
   static fetch(data, callback = f => f) {
-    let d = localStorage.user;
-    // data=d;
-    console.log(this.HOST + this.URL + "/current");
-    if (localStorage.user != null) {
-      d = localStorage.user;
-      let mas = d.split(",");
-      data = mas[0] + "," + mas[2];
-    }
+    // let d = localStorage.user;
+    // // data=d;
+    // console.log(this.HOST + this.URL + "/current");
+    // if (localStorage.user != null) {
+    //   d = localStorage.user;
+    //   let mas = d.split(",");
+    //   data = mas[0] + "," + mas[2];
+    // }
     return createRequest({
       url: this.HOST + this.URL + "/current",
-      data: data,
+      data: localStorage.user,
       method: 'GET',
       responseType: 'json',
       callback: (err, response) => {
         console.log("response11");
-        console.log(d);
         console.log(response);
         if (response != null) {
           User.setCurrent(response.user);

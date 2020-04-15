@@ -6,32 +6,26 @@ const createRequest = (options = {}) => {
   let xhr = new XMLHttpRequest();
   xhr.responseType = options.responseType;
   xhr.withCredentials = true;
-  let d;
-  let url;
-  // let asyn = true;
+  let formData = new FormData();
+
   if (options.method === "GET") {
-    url = options.url + "?";
-    if (options.data != null) {
-      // JSON.parse(options.data, (key, val) => url += key + "=" + val + "&");
+    options.url += "?";
+    console.log(options.data);
+    try {
       for (var key in JSON.parse(options.data)) {
-        console.log(key, JSON.parse(options.data)[key]);
-        if(JSON.parse(options.data)[key]!="[object Object]"){
-        url += key + "=" + JSON.parse(options.data)[key] + "&";}
+        options.url += `${key}=${JSON.parse(options.data)[key]}&`;
       }
-      console.log(url);
-    }
+    } catch {};
+    console.log(options.url);
   } else if (options.method === "POST") {
-    url = options.url;
-    d = new FormData();
     if (options.data != null) {
-      JSON.parse(options.data, (key, val) => d.append(key, val));
+      JSON.parse(options.data, (key, val) => formData.append(key, val));
     }
   }
-  xhr.open(options.method, url);
+  xhr.open(options.method, options.url);
   let error = null;
-
   try {
-    xhr.send(d);
+    xhr.send(formData);
   } catch (err) {
     error = err;
     options.callback(error, null);
