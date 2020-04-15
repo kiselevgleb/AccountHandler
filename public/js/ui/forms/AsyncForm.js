@@ -41,7 +41,7 @@ class AsyncForm {
         });
         console.log('JSON.stringify(object)');
         console.log(object);
-        bb(JSON.stringify(object));
+        bb(object);
       }
     });
   }

@@ -7,24 +7,30 @@ const createRequest = (options = {}) => {
   xhr.responseType = options.responseType;
   xhr.withCredentials = true;
   let formData = new FormData();
-
+console.log("all ",options.data);
+console.log(options.method);
   if (options.method === "GET") {
     options.url += "?";
-    console.log(options.data);
     try {
-      for (var key in JSON.parse(options.data)) {
-        options.url += `${key}=${JSON.parse(options.data)[key]}&`;
+      for (var key in options.data) {
+        options.url += `${key}=${options.data[key]}&`;
       }
     } catch {};
     console.log(options.url);
   } else if (options.method === "POST") {
     if (options.data != null) {
-      JSON.parse(options.data, (key, val) => formData.append(key, val));
+      try {
+        for (var key in options.data) {
+          formData.append(key, options.data[key]);
+        }
+      } catch {};
     }
   }
   xhr.open(options.method, options.url);
   let error = null;
   try {
+    console.log(formData.getAll(name));
+
     xhr.send(formData);
   } catch (err) {
     error = err;

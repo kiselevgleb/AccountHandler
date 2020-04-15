@@ -43,6 +43,7 @@ class User {
    * Получает информацию о текущем
    * авторизованном пользователе.
    * */
+  
   static fetch(data, callback = f => f) {
     // let d = localStorage.user;
     // // data=d;
@@ -54,13 +55,13 @@ class User {
     // }
     return createRequest({
       url: this.HOST + this.URL + "/current",
-      data: localStorage.user,
+      data: data,
       method: 'GET',
       responseType: 'json',
       callback: (err, response) => {
         console.log("response11");
         console.log(response);
-        if (response != null) {
+        if (response) {
           User.setCurrent(response.user);
         } else {
           User.unsetCurrent();
@@ -138,3 +139,12 @@ class User {
 }
 User.URL = '/user';
 User.HOST = Entity.HOST;
+// const data = {
+//   id: "543",
+//   name: "oksy",
+//   email: 'oksy@yandex.ru'
+// }
+// User.fetch(data, function (e,r) {
+//   console.log("e", e);
+//   console.log("r", r);
+// });
