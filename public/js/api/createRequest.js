@@ -8,19 +8,23 @@ const createRequest = (options = {}) => {
   xhr.withCredentials = true;
   let d;
   let url;
+  // let asyn = true;
   if (options.method === "GET") {
-    let urlTemp = options.url + "?";
+    url = options.url + "?";
     if (options.data != null) {
-      console.log("options.data");
-      let u = options.data.replace(/[{"}]/g, "");
-      let urlRep = u.replace(/:/g, "=");
-      url = urlTemp + urlRep.replace(/,/g, "&");
+      // JSON.parse(options.data, (key, val) => url += key + "=" + val + "&");
+      for (var key in JSON.parse(options.data)) {
+        console.log(key, JSON.parse(options.data)[key]);
+        if(JSON.parse(options.data)[key]!="[object Object]"){
+        url += key + "=" + JSON.parse(options.data)[key] + "&";}
+      }
+      console.log(url);
     }
   } else if (options.method === "POST") {
     url = options.url;
     d = new FormData();
     if (options.data != null) {
-      let k = JSON.parse(options.data, (key, val) => d.append(key, val));
+      JSON.parse(options.data, (key, val) => d.append(key, val));
     }
   }
   xhr.open(options.method, url);
@@ -33,14 +37,11 @@ const createRequest = (options = {}) => {
     error = err;
     options.callback(error, null);
   }
-
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4) {
       console.log(xhr.response);
       options.callback(error, xhr.response);
     }
-    
   };
-  
   return xhr;
 }

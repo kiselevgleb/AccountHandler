@@ -3,28 +3,29 @@
  * Имеет свойство URL, равно пустой строке.
  * Имеет свойство HOST, равно 'https://bhj-diplom.letsdocode.ru'.
  * */
-var URL = '';
-var HOST = "http://localhost:8000";
+// var URL = '';
+// var HOST = "http://localhost:8000";
 class Entity {
 
-  static getHost(){
-    return HOST;
-  }
+  // static getHost(){
+  //   return HOST;
+  // }
   /**
    * Запрашивает с сервера список данных.
    * Это могут быть счета или доходы/расходы
    * (в зависимости от того, что наследуется от Entity)
    * */
   static list(data, callback = f => f) {
-    console.log(HOST + this.URL);
+    console.log(this.HOST + this.URL);
     return createRequest({
-      url: HOST + this.URL,
+      url: this.HOST + this.URL,
       method: "GET",
       responseType: "json",
       data: data,
-      callback: (err, response) => {
+      callback
+      // : (err, response) => {
 
-      }
+      // }
     });
   }
 
@@ -35,7 +36,7 @@ class Entity {
    * */
   static create(data, callback = f => f) {
     return createRequest({
-      url: HOST + this.URL,
+      url: this.HOST + this.URL,
       method: "POST",
       responseType: "json",
       data: Object.assign(data, {
@@ -50,7 +51,7 @@ class Entity {
    * */
   static get(id = '', data, callback = f => f) {
     return createRequest({
-      url: HOST + this.URL,
+      url: this.HOST + this.URL,
       method: "GET",
       responseType: "json",
       data: Object.assign({
@@ -66,7 +67,7 @@ class Entity {
    * */
   static remove(id = '', data, callback = f => f) {
     return createRequest({
-      url: HOST + this.URL,
+      url: this.HOST + this.URL,
       method: "POST",
       responseType: "json",
       data: Object.assign({
@@ -76,3 +77,5 @@ class Entity {
     });
   }
 }
+Entity.URL = '';
+Entity.HOST = "http://localhost:8000";

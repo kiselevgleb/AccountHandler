@@ -4,11 +4,9 @@
  * Имеет свойство HOST, равно значению Entity.HOST.
  * Имеет свойство URL, равное '/user'.
  * */
-var URL = '/user';
-var HOST = Entity.getHost();
+
 class User {
   // constructor(URL, HOST) {
-
   // }
   /**
    * Устанавливает текущего пользователя в
@@ -19,7 +17,6 @@ class User {
     console.log(user);
     // localStorage.user = user;
   }
-
   /**
    * Удаляет информацию об авторизованном
    * пользователе из локального хранилища.
@@ -31,7 +28,6 @@ class User {
     console.log(current());
     // localStorage.clear();
   }
-
   /**
    * Возвращает текущего авторизованного пользователя
    * из локального хранилища
@@ -43,7 +39,6 @@ class User {
       return null;
     }
   }
-
   /**
    * Получает информацию о текущем
    * авторизованном пользователе.
@@ -51,14 +46,14 @@ class User {
   static fetch(data, callback = f => f) {
     let d = localStorage.user;
     // data=d;
-    console.log(HOST + URL + "/current");
+    console.log(this.HOST + this.URL + "/current");
     if (localStorage.user != null) {
       d = localStorage.user;
       let mas = d.split(",");
       data = mas[0] + "," + mas[2];
     }
     return createRequest({
-      url: HOST + URL + "/current",
+      url: this.HOST + this.URL + "/current",
       data: data,
       method: 'GET',
       responseType: 'json',
@@ -74,9 +69,7 @@ class User {
         callback(err, response);
       }
     });
-
   }
-
   /**
    * Производит попытку авторизации.
    * После успешной авторизации необходимо
@@ -85,7 +78,7 @@ class User {
    * */
   static login(data, callback = f => f) {
     return createRequest({
-      url: HOST + URL + '/login',
+      url: this.HOST + this.URL + '/login',
       data: data,
       method: 'POST',
       responseType: 'json',
@@ -107,7 +100,7 @@ class User {
    * */
   static register(data, callback = f => f) {
     return createRequest({
-      url: HOST + URL + '/register',
+      url: this.HOST + this.URL + '/register',
       data: data,
       method: 'POST',
       responseType: 'json',
@@ -115,15 +108,11 @@ class User {
         if (response.success) {
           User.setCurrent(response.user);
           //     // return response;
-           
         } else {
         }
         callback(err, response);
       }
-
     });
-
-
   }
 
   /**
@@ -132,7 +121,7 @@ class User {
    * */
   static logout(data, callback = f => f) {
     return createRequest({
-      url: HOST + URL + '/logout',
+      url: this.HOST + this.URL + '/logout',
       data: data,
       method: 'POST',
       responseType: 'json',
@@ -148,3 +137,5 @@ class User {
     });
   }
 }
+User.URL = '/user';
+User.HOST = Entity.HOST;
