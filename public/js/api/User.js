@@ -83,7 +83,7 @@ class User {
       method: 'POST',
       responseType: 'json',
       callback: (err, response) => {
-        if (response.success) {
+        if (response) {
           console.log("777");
           User.setCurrent(response.user);
         } 
