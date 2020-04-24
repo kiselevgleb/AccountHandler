@@ -14,7 +14,8 @@ class LoginForm extends AsyncForm{
     // if(User.login(options).user!= undefined){
       console.log(options);
       User.login(options);
-      App.setState( 'user-logged' );
+      
+      App.setState('user-logged');
       let mod = document.querySelectorAll('.modal.fade.in');
       Array.from(mod).forEach(element => element.style.display = 'none');
   

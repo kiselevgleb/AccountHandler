@@ -2,8 +2,7 @@
  * Класс AccountsWidget управляет блоком
  * отображения счетов в боковой колонке
  * */
-let butAccount = document.querySelectorAll(".account");
-let butCreate = document.querySelector(".create-account");
+
 class AccountsWidget {
   /**
    * Устанавливает текущий элемент в свойство element
@@ -31,12 +30,24 @@ class AccountsWidget {
    * вызывает AccountsWidget.onSelectAccount()
    * */
   registerEvents() {
+    let butAccount = document.querySelectorAll(".account");
+    let butCreate = document.querySelector(".create-account");
+    console.log(butCreate);
     butCreate.addEventListener("click", function () {
+      console.log("createAccount");
       App.getModal('createAccount').open();
     });
-    Array.from(butAccount).forEach(element => this.onSelectAccount());
-  }
 
+    Array.from(butAccount).forEach(element => {
+      element.onclick = function () {
+        this.onSelectAccount(element)
+      }
+    });
+  }
+  // logBut.addEventListener("click", function () {
+  //   console.log("log");
+  //   App.getModal('login').open();
+  // });
   /**
    * Метод доступен только авторизованным пользователям
    * (User.current()).
@@ -51,21 +62,19 @@ class AccountsWidget {
     if (User.current() != undefined) {
       console.log(localStorage.user);
       let masAcc;
+      let ren = this;
+      console.log(this);
       try {
         masAcc = Account.list(JSON.parse(localStorage.user));
-      } catch (error) {
-      }
-      // setTimeout(console.log("wait"), 20000);
-      console.log(masAcc);
-      // let mas = masAcc.response.data;
-      console.log("XMLHttpRequest");
-
-      console.log(masAcc);
-
-      if (masAcc != null) {
-        this.clear();
-        // masAcc.forEach(element => renderItem(element));
-      }
+      } catch (error) {}
+      masAcc.onreadystatechange = function () {
+        if (masAcc.readyState == 4) {
+          console.log(masAcc);
+          console.log(masAcc.response.data);
+          ren.renderItem(masAcc.response.data);
+          // }
+        }
+      };
     }
 
   }
@@ -100,7 +109,6 @@ class AccountsWidget {
    * */
   getAccountHTML(item) {
     return `<li class="active account" data-id="${item.account_id}"><a href="#"><span>${item.name}</span> /<span>${item.sum} ₽</span></a></li>`;
-
   }
 
   /**
@@ -110,7 +118,24 @@ class AccountsWidget {
    * и добавляет его внутрь элемента виджета
    * */
   renderItem(item) {
-    let mas = JSON.parse(item);
-    mas.forEach(e => insertAdjacentHTML("beforeend", this.getAccountHTML(e)));
+    console.log(item);
+    let panel = document.querySelector('.accounts-panel');
+    console.log(panel);
+    console.log(this);
+    if (item.length != null) {
+      item.forEach(element => {
+        panel.innerHTML += this.getAccountHTML(element);
+      });
+    }
+    // try {
+
+    // let mas = item;
+    // item.forEach(e => insertAdjacentHTML("beforeend", this.getAccountHTML(e)));
+    // } catch (e) {}
+    // renderTransactions(dat) {
+    //   let cont = document.querySelector('.content');
+    //   if(dat.length!=null){
+    //   dat.forEach(element => {cont.innerHTML+=this.getTransactionHTML(element)});}
+    // }
   }
 }

@@ -24,8 +24,12 @@ class Entity {
       data: data,
       callback
       // : (err, response) => {
+      //   console.log("list");
+      //   console.log(response);
 
+      //   callback(err, response);
       // }
+
     });
   }
 

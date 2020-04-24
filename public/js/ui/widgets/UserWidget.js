@@ -30,6 +30,7 @@ class UserWidget {
   update() {
     let n = document.querySelector(".user-name");
     let u = User.current();
+    console.log("kkkk", u);
     console.log("user");
     console.log(u);
     if(u!=null){

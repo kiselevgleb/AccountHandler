@@ -55,6 +55,7 @@ class Sidebar {
     });
     logOutBut.addEventListener("click", function () {
       User.logout(); 
+      App.setState( 'init' );
     });
   }
 

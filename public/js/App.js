@@ -31,6 +31,7 @@ class App {
    * состояние 'init'
    * */
   static initUser() {
+    console.log("fetch");
     User.fetch(User.current(), () =>
       this.setState( User.current() ? 'user-logged' : 'init' )
     );
@@ -130,6 +131,7 @@ class App {
    * и передаёт туда объект options
    * */
   static showPage( pageName, options ) {
+    console.log("Show "+ pageName);
     const page = this.getPage( pageName );
     page.render( options );
   }
@@ -145,6 +147,7 @@ class App {
    * вызвать метод clear()
    * */
   static setState( state ) {
+    console.log(state);
     if (this.state) {
       this.element.classList.remove( `app_${this.state}` );
     }

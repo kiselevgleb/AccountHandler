@@ -45,14 +45,6 @@ class User {
    * */
   
   static fetch(data, callback = f => f) {
-    // let d = localStorage.user;
-    // // data=d;
-    // console.log(this.HOST + this.URL + "/current");
-    // if (localStorage.user != null) {
-    //   d = localStorage.user;
-    //   let mas = d.split(",");
-    //   data = mas[0] + "," + mas[2];
-    // }
     return createRequest({
       url: this.HOST + this.URL + "/current",
       data: data,
@@ -128,9 +120,10 @@ class User {
       callback: (err, response) => {
         console.log("resOut");
         console.log(response);
-        if (response.success) {
+        if (response) {
           console.log("777logout");
           User.unsetCurrent();
+          App.update();
         } 
         callback(err, response);
       }

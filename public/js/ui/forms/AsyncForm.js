@@ -63,9 +63,9 @@ class AsyncForm {
   //   return object;
   // }
 
-  onSubmit(options) {
+  // onSubmit(options) {
 
-  }
+  // }
 
   /**
    * Вызывает метод onSubmit и передаёт туда
