@@ -3,7 +3,7 @@
  * входа в портал
  * Наследуется от AsyncForm
  * */
-class LoginForm extends AsyncForm{
+class LoginForm extends AsyncForm {
   /**
    * Производит авторизацию с помощью User.login
    * После успешной авторизации, сбрасывает форму,
@@ -11,14 +11,20 @@ class LoginForm extends AsyncForm{
    * закрывает окно, в котором находится форма
    * */
   onSubmit(options) {
-    // if(User.login(options).user!= undefined){
-      console.log(options);
-      User.login(options);
-      
-      App.setState('user-logged');
-      let mod = document.querySelectorAll('.modal.fade.in');
-      Array.from(mod).forEach(element => element.style.display = 'none');
-  
+    console.log(options);
+    let listAcc;
+    try {
+      listAcc = User.login(options);
+    } catch (error) {}
+
+    // listAcc.onreadystatechange = function () {
+    // if (listAcc.readyState == 4&&xhr.status == 200) {
+
+    App.setState('user-logged');
+    let mod = document.querySelectorAll('.modal.fade.in');
+    Array.from(mod).forEach(element => element.style.display = 'none');
     // }
+    // };
+
   }
 }

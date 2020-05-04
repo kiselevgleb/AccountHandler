@@ -2,7 +2,8 @@
  * Класс AccountsWidget управляет блоком
  * отображения счетов в боковой колонке
  * */
-
+let butAccount = document.querySelectorAll(".account");
+let butCreate = document.querySelector(".create-account");
 class AccountsWidget {
   /**
    * Устанавливает текущий элемент в свойство element
@@ -29,9 +30,9 @@ class AccountsWidget {
    * (которые отображены в боковой колонке),
    * вызывает AccountsWidget.onSelectAccount()
    * */
+
   registerEvents() {
-    let butAccount = document.querySelectorAll(".account");
-    let butCreate = document.querySelector(".create-account");
+
     console.log(butCreate);
     butCreate.addEventListener("click", function () {
       console.log("createAccount");
@@ -40,7 +41,7 @@ class AccountsWidget {
 
     Array.from(butAccount).forEach(element => {
       element.onclick = function () {
-        this.onSelectAccount(element)
+        this.onSelectAccount(element);
       }
     });
   }
@@ -63,20 +64,17 @@ class AccountsWidget {
       console.log(localStorage.user);
       let masAcc;
       let ren = this;
-      console.log(this);
       try {
         masAcc = Account.list(JSON.parse(localStorage.user));
+        
       } catch (error) {}
       masAcc.onreadystatechange = function () {
         if (masAcc.readyState == 4) {
-          console.log(masAcc);
-          console.log(masAcc.response.data);
+          ren.clear();
           ren.renderItem(masAcc.response.data);
-          // }
         }
       };
     }
-
   }
   /**
    * Очищает список ранее отображённых счетов.

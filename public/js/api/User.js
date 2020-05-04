@@ -23,7 +23,6 @@ class User {
    * */
   static unsetCurrent() {
     // console.log(current());
-
     localStorage.removeItem("user");
     // console.log(current());
     // localStorage.clear();
@@ -45,6 +44,7 @@ class User {
    * */
   
   static fetch(data, callback = f => f) {
+    console.log(data);
     return createRequest({
       url: this.HOST + this.URL + "/current",
       data: data,
@@ -69,6 +69,7 @@ class User {
    * User.setCurrent.
    * */
   static login(data, callback = f => f) {
+    console.log(data);
     return createRequest({
       url: this.HOST + this.URL + '/login',
       data: data,
@@ -77,7 +78,9 @@ class User {
       callback: (err, response) => {
         if (response) {
           console.log("777");
+          console.log(response.user);
           User.setCurrent(response.user);
+          console.log(this.current());
         } 
         callback(err, response);
       }

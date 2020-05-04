@@ -16,7 +16,7 @@ class Entity {
    * (в зависимости от того, что наследуется от Entity)
    * */
   static list(data, callback = f => f) {
-    console.log(this.HOST + this.URL);
+    console.log(data);
     return createRequest({
       url: this.HOST + this.URL,
       method: "GET",
@@ -29,7 +29,6 @@ class Entity {
 
       //   callback(err, response);
       // }
-
     });
   }
 

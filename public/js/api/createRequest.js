@@ -18,6 +18,7 @@ console.log(options.method);
     } catch {};
     console.log(options.url);
   } else if (options.method === "POST") {
+    console.log(options.data);
     if (options.data != null) {
       try {
         for (var key in options.data) {
@@ -37,7 +38,7 @@ console.log(options.method);
     options.callback(error, null);
   }
   xhr.onreadystatechange = function () {
-    if (xhr.readyState == 4) {
+    if (xhr.readyState == 4&&xhr.status == 200) {
       console.log(xhr.response);
       options.callback(error, xhr.response);
     }
