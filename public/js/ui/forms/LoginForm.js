@@ -15,6 +15,7 @@ class LoginForm extends AsyncForm {
     let listAcc;
     try {
       listAcc = User.login(options);
+      
     } catch (error) {}
 
     // listAcc.onreadystatechange = function () {

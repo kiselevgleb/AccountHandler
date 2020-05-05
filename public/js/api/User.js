@@ -68,11 +68,11 @@ class User {
    * сохранить пользователя через метод
    * User.setCurrent.
    * */
-  static login(data, callback = f => f) {
-    console.log(data);
+  static login(d, callback = f => f) {
+    console.log(d);
     return createRequest({
       url: this.HOST + this.URL + '/login',
-      data: data,
+      data: d.data,
       method: 'POST',
       responseType: 'json',
       callback: (err, response) => {

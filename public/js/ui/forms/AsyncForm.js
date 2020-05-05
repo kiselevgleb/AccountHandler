@@ -30,21 +30,30 @@ class AsyncForm {
    * */
 
   registerEvents() {
-    let bb = this.onSubmit;
-    this.element.addEventListener("submit", function (e) {
+    let el = this.element;
+    el.addEventListener("submit", function (e) {
       e.preventDefault();
       if (e.target != null) {
-        let object = {};
-        let formData = new FormData(e.target);
-        formData.forEach(function (value, key) {
-          object[key] = value;
-        });
-        console.log('JSON.stringify(object)');
-        console.log(object);
-        bb(object);
+        this.submit();
       }
     });
   }
+  // registerEvents() {
+  //   let bb = this.onSubmit;
+  //   this.element.addEventListener("submit", function (e) {
+  //     e.preventDefault();
+  //     if (e.target != null) {
+  //       let object = {};
+  //       let formData = new FormData(e.target);
+  //       formData.forEach(function (value, key) {
+  //         object[key] = value;
+  //       });
+  //       console.log('JSON.stringify(object)');
+  //       console.log(JSON.stringify(object));
+  //       bb(object);
+  //     }
+  //   });
+  // }
 
   /**
    * Преобразует данные формы в объект вида
@@ -53,29 +62,32 @@ class AsyncForm {
    *  'название поля формы 2': 'значение поля формы 2'
    * }
    * */
-  // getData() {
-  //   let object = {};
-  //   let formData = new FormData(form);
-  //   formData.forEach(function (value, key) {
-  //     object[key] = value;
-  //   });
-  //   // let json = object;
-  //   return object;
-  // }
+  getData() {
+    let object = {};
+    let formData = new FormData(this.element);
+    formData.forEach(function (value, key) {
+      object[key] = value;
+    });
+    // let json = object;
+    console.log("111111111111111111111111");
+    console.log(object);
+    return object;
+  }
 
-  // onSubmit(options) {
+  onSubmit(options) {
 
-  // }
+  }
 
   /**
    * Вызывает метод onSubmit и передаёт туда
    * данные, полученные из метода getData()
    * */
-  // submittt() {
-  //   console.log(window);
-  //   console.log(form);
-  //   console.log(ee.getData());
+  submit() {
+    let method = this.element.method;
+    let action = this.element.action;
+    let d = this.getData();
 
-  //   // form.onSubmit(this.getData());
-  // }
+    this.onSubmit(JSON.stringify({"url": action, "method": method, "data": JSON.stringify(d)}));
+
+  }
 }
