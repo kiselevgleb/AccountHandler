@@ -15,12 +15,11 @@ class AsyncForm {
    * через registerEvents()
    * */
   constructor(element) {
-    // console.log(element.className);
-    if (element.className == "form") {
+    if (element!=undefined) {
       this.element = element;
       this.registerEvents();
     } else {
-      throw "переданный элемент не существует";
+      throw new Error("переданный элемент не существует");
     }
   }
 
@@ -30,18 +29,21 @@ class AsyncForm {
    * */
 
   registerEvents() {
-    let el = this.element;
-    el.addEventListener("submit", function (e) {
+    let context = this;
+    this.element.addEventListener("submit", function (e) {
       e.preventDefault();
-      if (e.target != null) {
-        this.submit();
-      }
+      context.submit();
     });
   }
+
   // registerEvents() {
   //   let bb = this.onSubmit;
   //   this.element.addEventListener("submit", function (e) {
   //     e.preventDefault();
+  //           console.log(e);
+  //     console.log(e.target);
+  //     console.log(this.element);
+
   //     if (e.target != null) {
   //       let object = {};
   //       let formData = new FormData(e.target);
@@ -64,18 +66,17 @@ class AsyncForm {
    * */
   getData() {
     let object = {};
+    console.log(this);
     let formData = new FormData(this.element);
     formData.forEach(function (value, key) {
       object[key] = value;
     });
-    // let json = object;
     console.log("111111111111111111111111");
     console.log(object);
     return object;
   }
 
   onSubmit(options) {
-
   }
 
   /**
@@ -86,8 +87,6 @@ class AsyncForm {
     let method = this.element.method;
     let action = this.element.action;
     let d = this.getData();
-
     this.onSubmit(JSON.stringify({"url": action, "method": method, "data": JSON.stringify(d)}));
-
   }
 }

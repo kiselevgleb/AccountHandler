@@ -12,20 +12,9 @@ class LoginForm extends AsyncForm {
    * */
   onSubmit(options) {
     console.log(options);
-    let listAcc;
-    try {
-      listAcc = User.login(options);
-      
-    } catch (error) {}
-
-    // listAcc.onreadystatechange = function () {
-    // if (listAcc.readyState == 4&&xhr.status == 200) {
-
-    App.setState('user-logged');
-    let mod = document.querySelectorAll('.modal.fade.in');
-    Array.from(mod).forEach(element => element.style.display = 'none');
-    // }
-    // };
-
+    User.login(options, function() {
+      App.setState('user-logged');
+      App.getModal("login").close();      
+    });
   }
 }
